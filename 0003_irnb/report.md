@@ -86,5 +86,5 @@ c78d86a289bf4cb54b95e305c3ab364dcf19d74780bd4724dff88152ed68d03c stealth_balance
 
 ۳. ریپورت نوشتم و با دستور زیر ساینش کردم:
 ```bash
-gpg --detach-sig 0002_toolabi/report.md
+gpg --detach-sig 0003_irnb/report.md
 ```
