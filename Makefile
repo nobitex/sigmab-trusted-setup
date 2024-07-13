@@ -1,9 +1,5 @@
 .PHONY=setup contribute verify
 
-LAST_VERSION=0000
-LAST_CONTRIBUTOR=https://github.com/keyvank
-NEXT_VERSION=0001
-
 powersOfTau28_hez_final_22.ptau:
 	wget -c https://storage.googleapis.com/zkevm/ptau/powersOfTau28_hez_final_22.ptau
 
@@ -14,18 +10,21 @@ verify: powersOfTau28_hez_final_22.ptau
 	snarkjs zkey verify sigmab/circuit/temp/stealth_balance_addition/stealth_balance_addition.r1cs powersOfTau28_hez_final_22.ptau stealth_balance_addition_${VERSION}.zkey
 	snarkjs zkey verify sigmab/circuit/temp/pol/pol.r1cs powersOfTau28_hez_final_22.ptau pol_${LAST_VERSION}.zkey
 
-contribute:
-	snarkjs zkey contribute mpt_path_${LAST_VERSION}.zkey mpt_path_${NEXT_VERSION}.zkey -v --name=${LAST_CONTRIBUTOR}
-	snarkjs zkey contribute mpt_last_${LAST_VERSION}.zkey mpt_last_${NEXT_VERSION}.zkey -v --name=${LAST_CONTRIBUTOR}
-	snarkjs zkey contribute ecdsa_verify_${LAST_VERSION}.zkey ecdsa_verify_${NEXT_VERSION}.zkey -v --name=${LAST_CONTRIBUTOR}
-	snarkjs zkey contribute stealth_balance_addition_${LAST_VERSION}.zkey stealth_balance_addition_${NEXT_VERSION}.zkey -v --name=${LAST_CONTRIBUTOR}
-	snarkjs zkey contribute pol_${LAST_VERSION}.zkey pol_${NEXT_VERSION}.zkey -v --name=${LAST_CONTRIBUTOR}
+zk-contribute:
+	@snarkjs zkey contribute params/mpt_path_${LAST_VERSION}.zkey params/mpt_path_${NEXT_VERSION}.zkey -v --name=${LAST_CONTRIBUTOR} --entropy=${ENTROPY}
+	@snarkjs zkey contribute params/mpt_last_${LAST_VERSION}.zkey params/mpt_last_${NEXT_VERSION}.zkey -v --name=${LAST_CONTRIBUTOR} --entropy=${ENTROPY}
+	@snarkjs zkey contribute params/ecdsa_verify_${LAST_VERSION}.zkey params/ecdsa_verify_${NEXT_VERSION}.zkey -v --name=${LAST_CONTRIBUTOR} --entropy=${ENTROPY}
+	@snarkjs zkey contribute params/stealth_balance_addition_${LAST_VERSION}.zkey params/stealth_balance_addition_${NEXT_VERSION}.zkey -v --name=${LAST_CONTRIBUTOR} --entropy=${ENTROPY}
+	@snarkjs zkey contribute params/pol_${LAST_VERSION}.zkey params/pol_${NEXT_VERSION}.zkey -v --name=${LAST_CONTRIBUTOR} --entropy=${ENTROPY}
 
-	rm -rf mpt_path_${LAST_VERSION}.zkey
-	rm -rf mpt_last_${LAST_VERSION}.zkey
-	rm -rf ecdsa_verify_${LAST_VERSION}.zkey
-	rm -rf stealth_balance_addition_${LAST_VERSION}.zkey
-	rm -rf pol_${LAST_VERSION}.zkey
+	@rm -rf params/mpt_path_${LAST_VERSION}.zkey
+	@rm -rf params/mpt_last_${LAST_VERSION}.zkey
+	@rm -rf params/ecdsa_verify_${LAST_VERSION}.zkey
+	@rm -rf params/stealth_balance_addition_${LAST_VERSION}.zkey
+	@rm -rf params/pol_${LAST_VERSION}.zkey
+
+contribute:
+	@python main.py
 
 setup: powersOfTau28_hez_final_22.ptau
 	rm -rf sigmab
