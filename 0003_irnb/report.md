@@ -6,6 +6,7 @@
 
 #### گزارش
 ۰. پروژه رو فورک کردم که برای پول ریکوئست استفاده کنم ازش
+
 ۱. پارامز قبلی رو از پردیس گرفتم:
 
  https://drive.google.com/file/d/1im6S8YZFEW-50j_7qFn2Yv0OYvPHv0U1/view?usp=sharing
