@@ -31,7 +31,7 @@ npm i g snarkjs
 
 5. با استفاده از نرم‌افزار `gpg`، گزارش خود را امضا کنید. لازم است که از کلیدعمومی که به گیتهاب شما وصل است استفاده کنید.
     ```bash
-    gpg --detach-sign repord.md
+    gpg --detach-sign report.md
     ```
 
 6. یک Pull Request بسازید و تغییرات خود را سابمیت کنید.
