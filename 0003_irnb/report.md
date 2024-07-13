@@ -12,6 +12,7 @@
  https://drive.google.com/file/d/1im6S8YZFEW-50j_7qFn2Yv0OYvPHv0U1/view?usp=sharing
 
 بعد از دانلود کردن فایل زیپ دایرکتوری params رو داخل مسر اصلی ریپو قرار دادم
+
 ۲. کامند زیر رو برای تراستد ستاپ خودم اجرا کردم:
 
 ```bash
