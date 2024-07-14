@@ -4,7 +4,7 @@ import argparse
 import hashlib
 from getpass import getpass
 
-attestations = list(pathlib.Path('.').glob('[0-9][0-9][0-9][0-9]_.*'))
+attestations = list(pathlib.Path('.').glob('[0-9][0-9][0-9][0-9]_*'))
 
 get_num = lambda path: int(str(path).split("_")[0])
 last_attestation = None
