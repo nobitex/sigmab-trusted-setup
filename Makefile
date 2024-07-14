@@ -24,7 +24,8 @@ zk-contribute:
 	@rm -rf params/pol_${LAST_VERSION}.zkey
 
 contribute:
-	@python main.py
+	@script -q -c "python main.py" logs.txt
+
 
 setup: powersOfTau28_hez_final_22.ptau
 	rm -rf sigmab
