@@ -36,6 +36,35 @@ curr_version = f"{get_num(last_attestation):04d}"
 next_version = f"{get_num(last_attestation) + 1:04d}"
 entropy = getpass("Enter entropy: ")
 
+add_camera_entropy = input("Add entropy from camera? (yes or no): ").strip().lower()
+if add_camera_entropy == "yes":
+
+    import cv2
+    cap = cv2.VideoCapture(0)
+    if not cap.isOpened():
+        print("Failed to capture entropy from the camera, skipping...")
+    else:
+        print("Capturing entropy from the camera... Press 'q' to stop.")
+
+        hasher = hashlib.sha256()
+        hasher.update(entropy.encode("utf-8"))
+
+        while True:
+            ret, frame = cap.read()
+            if not ret:
+                break
+
+            hasher.update(frame.tobytes())
+
+            cv2.imshow("Camera", frame)
+            if cv2.waitKey(1) & 0xFF == ord("q"):
+                break
+
+        cap.release()
+        cv2.destroyAllWindows()
+
+        entropy = hasher.hexdigest()
+
 envs = f"LAST_VERSION={curr_version} NEXT_VERSION={next_version} LAST_CONTRIBUTOR=https://github.com/{github_username} ENTROPY={entropy}"
 os.system(f"{envs} make zk-contribute")
 
