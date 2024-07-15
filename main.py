@@ -2,7 +2,6 @@ import os
 import pathlib
 import argparse
 import hashlib
-import cv2
 from getpass import getpass
 
 attestations = list(pathlib.Path('.').glob('[0-9][0-9][0-9][0-9]_*'))
@@ -40,6 +39,7 @@ entropy = getpass("Enter entropy: ")
 add_camera_entropy = input("Add entropy from camera? (yes or no): ").strip().lower()
 if add_camera_entropy == "yes":
 
+    import cv2
     cap = cv2.VideoCapture(0)
     if not cap.isOpened():
         print("Failed to capture entropy from the camera, skipping...")
