@@ -65,11 +65,6 @@ if add_camera_entropy == "yes":
 
         entropy = hasher.hexdigest()
 
-envs = f"LAST_VERSION={curr_version} NEXT_VERSION={next_version} LAST_CONTRIBUTOR=https://github.com/{github_username} ENTROPY={entropy}"
-os.system(f"{envs} make zk-contribute")
-
-folder = pathlib.Path(f"{next_version}_{github_username}")
-os.makedirs(folder, exist_ok=True)
 
 zkeys = [
     'ecdsa_verify',
@@ -78,6 +73,17 @@ zkeys = [
     'pol',
     'stealth_balance_addition'
 ]
+
+if os.name == 'nt':
+    for zkey in zkeys:
+        cmd = f"snarkjs zkey contribute params/{zkey}_{curr_version}.zkey params/{zkey}_{next_version}.zkey -v --name=https://github.com/{github_username} --entropy={entropy}",
+        os.system(cmd)
+else:
+    envs = f"LAST_VERSION={curr_version} NEXT_VERSION={next_version} LAST_CONTRIBUTOR=https://github.com/{github_username} ENTROPY={entropy}"
+    os.system(f"{envs} make zk-contribute")
+
+folder = pathlib.Path(f"{next_version}_{github_username}")
+os.makedirs(folder, exist_ok=True)
 
 with open(folder / 'hashes.txt', 'w') as f:
     for zkey in zkeys:
